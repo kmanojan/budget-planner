@@ -1,0 +1,53 @@
+services:
+  # Web Service for Laravel API
+  - type: web
+    name: budget-planner-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_NAME
+        value: BudgetPlannerAPI
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        sync: false # Set to your Render URL e.g. https://budget-planner-api.onrender.com
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: budget-planner-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: budget-planner-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: budget-planner-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: budget-planner-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: budget-planner-db
+          property: password
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: CACHE_STORE
+        value: array
+
+databases:
+  # Free PostgreSQL Database instance on Render
+  - name: budget-planner-db
+    plan: free
+    databaseName: budget_planner
+    user: budget_user
