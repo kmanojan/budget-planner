@@ -41,6 +41,12 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . /var/www/html
 
+# Create database directory and touch database.sqlite file so SQLite commands never fail
+RUN mkdir -p /var/www/html/database && \
+    touch /var/www/html/database/database.sqlite && \
+    chown -R www-data:www-data /var/www/html/database && \
+    chmod -R 775 /var/www/html/database
+
 # Install Composer dependencies
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
