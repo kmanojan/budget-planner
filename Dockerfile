@@ -21,19 +21,19 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
 
-# Set environment variables from InfinityFree MySQL credentials
+# Set environment variables from Render PostgreSQL instance
 ENV APP_ENV=production \
     APP_DEBUG=false \
     APP_KEY=base64:r5aHDWbzTFeONFIUHS1p2y1jcPA0uFPoGAuUVevbbco= \
     LOG_CHANNEL=stderr \
     SESSION_DRIVER=cookie \
     CACHE_STORE=array \
-    DB_CONNECTION=mysql \
-    DB_HOST=sql209.infinityfree.com \
-    DB_PORT=3306 \
-    DB_DATABASE=if0_42643536_budget_planner \
-    DB_USERNAME=if0_42643536 \
-    DB_PASSWORD=Tharsi1106
+    DB_CONNECTION=pgsql \
+    DB_HOST=dpg-d9ukugtbedkc73afj3n0-a \
+    DB_PORT=5432 \
+    DB_DATABASE=budget_planner_210j \
+    DB_USERNAME=budget_planner_210j_user \
+    DB_PASSWORD=eqLxj6dmP34bID8wLUlTDRpGxmP3QGRr
 
 # Set working directory
 WORKDIR /var/www/html

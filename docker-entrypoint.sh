@@ -23,3 +23,10 @@ php artisan db:seed --force || true
 
 # Start Apache in foreground
 exec apache2-foreground
+
+
+Host dpg-d9ukugtbedkc73afj3n0-a
+DB_USERNAME budget_planner_210j_user
+DB_PASSWORD eqLxj6dmP34bID8wLUlTDRpGxmP3QGRr
+Internal Database URL postgresql://budget_planner_210j_user:eqLxj6dmP34bID8wLUlTDRpGxmP3QGRr@dpg-d9ukugtbedkc73afj3n0-a/budget_planner_210j
+
