@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Install system dependencies & PHP extensions required by Laravel & MySQL/PostgreSQL
+# Install system dependencies & PHP extensions required by Laravel (MySQL, PostgreSQL, SQLite)
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+    libsqlite3-dev \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pdo_sqlite mbstring exif pcntl bcmath gd
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
@@ -19,6 +20,16 @@ RUN a2enmod rewrite
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
+
+# Default environment variables for zero-config Docker execution
+ENV APP_ENV=production \
+    APP_DEBUG=false \
+    APP_KEY=base64:r5aHDWbzTFeONFIUHS1p2y1jcPA0uFPoGAuUVevbbco= \
+    LOG_CHANNEL=stderr \
+    SESSION_DRIVER=cookie \
+    CACHE_STORE=array \
+    DB_CONNECTION=sqlite \
+    DB_DATABASE=/var/www/html/database/database.sqlite
 
 # Set working directory
 WORKDIR /var/www/html
