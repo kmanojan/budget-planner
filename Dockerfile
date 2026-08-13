@@ -21,15 +21,19 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
 
-# Default environment variables for zero-config Docker execution
+# Set environment variables from InfinityFree MySQL credentials
 ENV APP_ENV=production \
     APP_DEBUG=false \
     APP_KEY=base64:r5aHDWbzTFeONFIUHS1p2y1jcPA0uFPoGAuUVevbbco= \
     LOG_CHANNEL=stderr \
     SESSION_DRIVER=cookie \
     CACHE_STORE=array \
-    DB_CONNECTION=sqlite \
-    DB_DATABASE=/var/www/html/database/database.sqlite
+    DB_CONNECTION=mysql \
+    DB_HOST=sql209.infinityfree.com \
+    DB_PORT=3306 \
+    DB_DATABASE=if0_42643536_budget_planner \
+    DB_USERNAME=if0_42643536 \
+    DB_PASSWORD=Tharsi1106
 
 # Set working directory
 WORKDIR /var/www/html
