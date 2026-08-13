@@ -17,8 +17,9 @@ php artisan config:clear || true
 php artisan route:clear || true
 php artisan cache:clear || true
 
-# Run database migrations automatically on startup
+# Run database migrations and seeders automatically on startup
 php artisan migrate --force || true
+php artisan db:seed --force || true
 
 # Start Apache in foreground
 exec apache2-foreground
